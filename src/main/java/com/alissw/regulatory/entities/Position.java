@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "positions")
+@Table(name = "Positions")
 public class Position implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
