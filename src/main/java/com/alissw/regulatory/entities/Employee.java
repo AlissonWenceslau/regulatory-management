@@ -35,6 +35,10 @@ public class Employee implements Serializable{
 	@OneToMany(mappedBy = "manager")
 	List<Employee> collaborators = new ArrayList<>();
 	
+	@ManyToOne
+	@JoinColumn(name = "position")
+	private Position position;
+	
 	public Employee() {
 		// TODO Auto-generated constructor stub
 	}
@@ -116,5 +120,13 @@ public class Employee implements Serializable{
 
 	public List<Employee> getCollaborators() {
 		return collaborators;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 }
