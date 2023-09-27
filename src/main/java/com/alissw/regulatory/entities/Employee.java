@@ -36,7 +36,7 @@ public class Employee implements Serializable{
 	List<Employee> collaborators = new ArrayList<>();
 	
 	@ManyToOne
-	@JoinColumn(name = "position")
+	@JoinColumn(name = "position_id")
 	private Position position;
 	
 	public Employee() {

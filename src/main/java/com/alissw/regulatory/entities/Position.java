@@ -21,7 +21,7 @@ public class Position implements Serializable {
 	private Long id;
 	private String name;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "position")
 	private List<Employee> employees = new ArrayList<>();
 	
 	public Position() {
