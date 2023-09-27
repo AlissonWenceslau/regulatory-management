@@ -9,3 +9,7 @@ INSERT INTO Employees (registration, first_name, last_name, indentification, cod
 INSERT INTO Categories (name) VALUES ('NR11');
 INSERT INTO Categories (name) VALUES ('NR12');
 INSERT INTO Categories (name) VALUES ('NR35');
+
+INSERT INTO Trainings (name) VALUES ('Operação de Paleteira Elétrica');
+INSERT INTO Trainings (name) VALUES ('Operação e Manutenção de Máquinas');
+INSERT INTO Trainings (name) VALUES ('Trabalho em Altura');
