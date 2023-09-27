@@ -1,11 +1,14 @@
 package com.alissw.regulatory.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +20,9 @@ public class Category implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	@OneToMany(mappedBy = "category")
+	private List<Training> trainings = new ArrayList<>();
 	
 	public Category() {
 		// TODO Auto-generated constructor stub
@@ -42,5 +48,9 @@ public class Category implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Training> getTrainings() {
+		return trainings;
 	}
 }
