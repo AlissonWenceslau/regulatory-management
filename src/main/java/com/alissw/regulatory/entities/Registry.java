@@ -1,5 +1,6 @@
 package com.alissw.regulatory.entities;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -13,7 +14,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Registration")
-public class Registry {
+public class Registry implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,5 +71,17 @@ public class Registry {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Registry other = (Registry) obj;
+		return Objects.equals(id, other.id);
 	}
 }
