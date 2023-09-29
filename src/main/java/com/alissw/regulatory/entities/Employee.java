@@ -40,6 +40,9 @@ public class Employee implements Serializable{
 	@JoinColumn(name = "position_id")
 	private Position position;
 	
+	@OneToMany(mappedBy = "employee")
+	private List<Registry> records = new ArrayList<>();
+	
 	public Employee() {
 		// TODO Auto-generated constructor stub
 	}
@@ -129,6 +132,10 @@ public class Employee implements Serializable{
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+	public List<Registry> getRecords() {
+		return records;
 	}
 
 	@Override

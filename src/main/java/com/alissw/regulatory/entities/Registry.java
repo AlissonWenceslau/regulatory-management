@@ -10,10 +10,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Registration")
+@Table(name = "Records")
 public class Registry implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -23,6 +25,10 @@ public class Registry implements Serializable{
 	private Instant startDate;
 	private Instant endDate;
 	private Status status;
+	
+	@ManyToOne
+	@JoinColumn(name = "employee_id")
+	private Employee employee;
 	
 	public Registry() {
 		// TODO Auto-generated constructor stub
@@ -66,6 +72,14 @@ public class Registry implements Serializable{
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	@Override
