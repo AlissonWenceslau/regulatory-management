@@ -13,3 +13,7 @@ INSERT INTO Categories (name) VALUES ('NR35');
 INSERT INTO Trainings (name, category_id) VALUES ('Operação de Paleteira Elétrica',1);
 INSERT INTO Trainings (name, category_id) VALUES ('Operação e Manutenção de Máquinas',2);
 INSERT INTO Trainings (name, category_id) VALUES ('Trabalho em Altura',3);
+
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-09-29T21:38:21Z','2025-09-29T21:38:21Z',1,1,1);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-09-29T21:38:21Z','2025-09-29T21:38:21Z',1,2,1);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-09-29T21:38:21Z','2025-09-29T21:38:21Z',1,3,1);
