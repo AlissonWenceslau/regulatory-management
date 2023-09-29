@@ -1,6 +1,8 @@
 package com.alissw.regulatory.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +27,9 @@ public class Training implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	@OneToMany(mappedBy = "training")
+	private List<Registry> records = new ArrayList<>();
 	
 	public Training() {
 		// TODO Auto-generated constructor stub
@@ -57,6 +63,10 @@ public class Training implements Serializable{
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public List<Registry> getRecords() {
+		return records;
 	}
 
 	@Override

@@ -30,6 +30,10 @@ public class Registry implements Serializable{
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	
+	@ManyToOne
+	@JoinColumn(name = "training_id")
+	private Training training;
+	
 	public Registry() {
 		// TODO Auto-generated constructor stub
 	}
@@ -80,6 +84,14 @@ public class Registry implements Serializable{
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	public Training getTraining() {
+		return training;
+	}
+
+	public void setTraining(Training training) {
+		this.training = training;
 	}
 
 	@Override
