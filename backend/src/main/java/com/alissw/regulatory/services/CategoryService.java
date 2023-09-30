@@ -43,9 +43,11 @@ public class CategoryService {
 	public CategoryDTO update(Long id, CategoryDTO dto) {
 		Category entity = repository.getReferenceById(id);
 		entity.setName(dto.getName());
-		
 		return new CategoryDTO(entity);
+	}
 	
+	public void delete(Long id) {
+		repository.deleteById(id);
 	}
 	
 }
