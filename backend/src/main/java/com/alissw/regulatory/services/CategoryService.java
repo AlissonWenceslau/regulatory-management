@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alissw.regulatory.dto.CategoryDTO;
 import com.alissw.regulatory.entities.Category;
 import com.alissw.regulatory.repositories.CategoryRepository;
+import com.alissw.regulatory.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -27,7 +28,7 @@ public class CategoryService {
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
 		Optional<Category> optional = repository.findById(id);
-		Category entity = optional.get();
+		Category entity = optional.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 		return new CategoryDTO(entity);
 	}
 	
