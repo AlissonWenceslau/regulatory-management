@@ -13,6 +13,8 @@ import com.alissw.regulatory.entities.Category;
 import com.alissw.regulatory.repositories.CategoryRepository;
 import com.alissw.regulatory.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class CategoryService {
 
@@ -42,9 +44,13 @@ public class CategoryService {
 	
 	@Transactional
 	public CategoryDTO update(Long id, CategoryDTO dto) {
-		Category entity = repository.getReferenceById(id);
-		entity.setName(dto.getName());
-		return new CategoryDTO(entity);
+		try {
+			Category entity = repository.getReferenceById(id);
+			entity.setName(dto.getName());
+			return new CategoryDTO(entity);
+		}catch (EntityNotFoundException  e) {
+			throw new ResourceNotFoundException("Entity not found");
+		}
 	}
 	
 	public void delete(Long id) {
