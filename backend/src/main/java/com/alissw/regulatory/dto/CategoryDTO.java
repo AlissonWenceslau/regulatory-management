@@ -2,9 +2,12 @@ package com.alissw.regulatory.dto;
 
 import com.alissw.regulatory.entities.Category;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class CategoryDTO {
 
 	private Long id;
+	@NotBlank
 	private String name;
 	
 	public CategoryDTO() {
