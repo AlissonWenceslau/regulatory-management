@@ -1,5 +1,6 @@
 package com.alissw.regulatory.services;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class CategoryServiceTests {
 	private Long nonExistingId;
 	private Long dependentId;
 	private Category category;
+	private CategoryDTO categoryDTO;
 	private List<Category> list;
 	
 	@BeforeEach
@@ -42,11 +44,14 @@ public class CategoryServiceTests {
 		nonExistingId = 200L;
 		dependentId = 3L;
 		category = Factory.category();
+		categoryDTO = Factory.categoryDTO();
 		list = List.of(category);
 		
 		Mockito.when(repository.findAll()).thenReturn(list);
 		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(category));
 		Mockito.when(repository.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
+		Mockito.when(repository.save(any())).thenReturn(category);
+		Mockito.when(repository.getReferenceById(existingId)).thenReturn(category);
 		Mockito.when(repository.existsById(dependentId)).thenReturn(true);
 		
 		doThrow(ResourceNotFoundException.class).when(repository).deleteById(nonExistingId);
@@ -72,6 +77,24 @@ public class CategoryServiceTests {
 		Assertions.assertThrows(ResourceNotFoundException.class, ()->{
 			service.findById(nonExistingId);
 		});
+	}
+	
+	@Test
+	public void insertShouldReturnCategoryWhenInsertCategory() {
+		CategoryDTO categoryDTO = service.insert(new CategoryDTO(category));
+		
+		Assertions.assertNotNull(categoryDTO);
+		Assertions.assertEquals(1L, categoryDTO.getId());
+		Mockito.verify(repository, Mockito.times(1)).save(any());
+	}
+	
+	@Test
+	public void updateShouldReturnCategoryDTOWhenExistsId() {
+		CategoryDTO dto = service.update(existingId, categoryDTO);
+		
+		Assertions.assertNotNull(dto);
+		Assertions.assertEquals(1L, dto.getId());
+		Mockito.verify(repository, Mockito.times(1)).getReferenceById(existingId);
 	}
 	
 	@Test
