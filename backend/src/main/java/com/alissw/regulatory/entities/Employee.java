@@ -34,7 +34,7 @@ public class Employee implements Serializable{
 	private Employee manager;
 	
 	@OneToMany(mappedBy = "manager")
-	List<Employee> collaborators = new ArrayList<>();
+	List<Employee> employees = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "position_id")
@@ -122,8 +122,8 @@ public class Employee implements Serializable{
 		this.manager = manager;
 	}
 
-	public List<Employee> getCollaborators() {
-		return collaborators;
+	public List<Employee> getEmployees() {
+		return employees;
 	}
 
 	public Position getPosition() {
