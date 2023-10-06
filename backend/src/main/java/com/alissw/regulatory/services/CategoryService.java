@@ -14,7 +14,6 @@ import com.alissw.regulatory.entities.Category;
 import com.alissw.regulatory.repositories.CategoryRepository;
 import com.alissw.regulatory.services.exceptions.DatabaseException;
 import com.alissw.regulatory.services.exceptions.ResourceNotFoundException;
-import com.alissw.regulatory.utils.Utils;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -41,7 +40,7 @@ public class CategoryService {
 	public CategoryDTO insert(CategoryDTO dto) {
 		try {
 			Category entity = new Category();
-			entity.setName(Utils.toUpperCase(dto.getName()));
+			entity.setName(dto.getName());
 			entity = repository.save(entity);
 			return new CategoryDTO(entity);
 		}catch (DataIntegrityViolationException e) {
@@ -53,7 +52,7 @@ public class CategoryService {
 	public CategoryDTO update(Long id, CategoryDTO dto) {
 		try {
 			Category entity = repository.getReferenceById(id);
-			entity.setName(Utils.toUpperCase(dto.getName()));
+			entity.setName(dto.getName());
 			return new CategoryDTO(entity);
 		}catch (EntityNotFoundException  e) {
 			throw new ResourceNotFoundException("Entity not found");

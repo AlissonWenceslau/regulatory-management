@@ -14,7 +14,6 @@ import com.alissw.regulatory.entities.Position;
 import com.alissw.regulatory.repositories.PositionRepository;
 import com.alissw.regulatory.services.exceptions.DatabaseException;
 import com.alissw.regulatory.services.exceptions.ResourceNotFoundException;
-import com.alissw.regulatory.utils.Utils;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -41,7 +40,7 @@ public class PositionService {
 	public PositionDTO insert(PositionDTO dto) {
 		try {
 			Position entity = new Position();
-			entity.setName(Utils.toUpperCase(dto.getName()));
+			entity.setName(dto.getName());
 			entity = repository.save(entity);
 			return new PositionDTO(entity);
 		}catch (DataIntegrityViolationException e) {
@@ -53,7 +52,7 @@ public class PositionService {
 	public PositionDTO update(Long id, PositionDTO dto) {
 		try {
 			Position entity = repository.getReferenceById(id);
-			entity.setName(Utils.toUpperCase(dto.getName()));
+			entity.setName(dto.getName());
 			return new PositionDTO(entity);
 		}catch (EntityNotFoundException  e) {
 			throw new ResourceNotFoundException("Entity not found");
