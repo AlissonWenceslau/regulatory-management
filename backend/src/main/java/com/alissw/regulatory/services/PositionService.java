@@ -53,6 +53,7 @@ public class PositionService {
 		try {
 			Position entity = repository.getReferenceById(id);
 			entity.setName(dto.getName());
+			entity = repository.save(entity);
 			return new PositionDTO(entity);
 		}catch (EntityNotFoundException  e) {
 			throw new ResourceNotFoundException("Entity not found");
