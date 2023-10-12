@@ -27,7 +27,7 @@ public class Registry implements Serializable{
 	private Instant startDate;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant endDate;
-	private Status status;
+	private Integer status;
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
@@ -46,7 +46,7 @@ public class Registry implements Serializable{
 		this.id = id;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.status = status;
+		this.status = status.getValue();
 	}
 
 	public Long getId() {
@@ -74,11 +74,11 @@ public class Registry implements Serializable{
 	}
 
 	public Status getStatus() {
-		return status;
+		return Status.toEnum(status);
 	}
 
 	public void setStatus(Status status) {
-		this.status = status;
+		this.status = status.getValue();
 	}
 
 	public Employee getEmployee() {

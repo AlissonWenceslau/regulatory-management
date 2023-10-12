@@ -13,14 +13,14 @@ INSERT INTO Trainings (name, category_id) VALUES ('Operação de Paleteira Elét
 INSERT INTO Trainings (name, category_id) VALUES ('Operação de Talha Elétrica',1);
 INSERT INTO Trainings (name, category_id) VALUES ('Operação e Manutenção de Máquinas',2);
 
-INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2022-04-03T00:00:00Z','2025-04-03T00:00:00Z',0,1,1);
-INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2022-05-12T00:00:00Z','2025-05-12T00:00:00Z',0,1,1);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2022-04-03T00:00:00Z','2025-04-03T00:00:00Z',1,1,1);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2022-05-12T00:00:00Z','2025-05-12T00:00:00Z',1,1,1);
 
-INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2019-05-12T00:00:00Z','2022-05-12T00:00:00Z',1,2,1);
-INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2022-06-03T00:00:00Z','2025-06-03T00:00:00Z',0,2,1);
-INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-06-13T00:00:00Z','2026-06-13T00:00:00Z',0,2,2);
-INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-07-18T00:00:00Z','2026-07-18T00:00:00Z',0,2,3);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2019-05-12T00:00:00Z','2022-05-12T00:00:00Z',2,2,1);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2022-06-03T00:00:00Z','2025-06-03T00:00:00Z',1,2,1);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-06-13T00:00:00Z','2026-06-13T00:00:00Z',1,2,2);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-07-18T00:00:00Z','2026-07-18T00:00:00Z',1,2,3);
 
-INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-06-13T00:00:00Z','2026-06-13T00:00:00Z',0,3,2);
-INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2022-05-03T00:00:00Z','2025-05-03T00:00:00Z',0,3,1);
-INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-07-18T00:00:00Z','2026-07-18T00:00:00Z',0,3,3);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-06-13T00:00:00Z','2026-06-13T00:00:00Z',1,3,2);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2022-05-03T00:00:00Z','2025-05-03T00:00:00Z',1,3,1);
+INSERT INTO Records (start_date, end_date, status, employee_id, training_id) VALUES ('2023-07-18T00:00:00Z','2026-07-18T00:00:00Z',1,3,3);
