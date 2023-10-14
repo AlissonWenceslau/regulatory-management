@@ -36,14 +36,14 @@ public class Employee implements Serializable{
 	private Employee manager;
 	
 	@OneToMany(mappedBy = "manager")
-	List<Employee> employees = new ArrayList<>();
+	List<Employee> collaborators = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "position_id")
 	private Position position;
 	
 	@OneToMany(mappedBy = "id.employee")
-	private Set<EmployeeTraining> trainings = new HashSet<>();
+	private Set<EmployeeTraining> employees = new HashSet<>();
 	
 	public Employee() {
 		// TODO Auto-generated constructor stub
@@ -124,8 +124,8 @@ public class Employee implements Serializable{
 		this.manager = manager;
 	}
 
-	public List<Employee> getEmployees() {
-		return employees;
+	public List<Employee> getCollaborators() {
+		return collaborators;
 	}
 
 	public Position getPosition() {
@@ -136,9 +136,13 @@ public class Employee implements Serializable{
 		this.position = position;
 	}
 
+	public Set<EmployeeTraining> getEmployees() {
+		return employees;
+	}
+
 	public Set<Training> getTrainings(){
 		Set<Training> list = new HashSet<>();
-		trainings.forEach(x -> list.add(x.getTraining()));
+		employees.forEach(x -> list.add(x.getTraining()));
 		return list;
 	}
 	
