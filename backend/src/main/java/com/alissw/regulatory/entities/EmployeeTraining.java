@@ -1,6 +1,7 @@
 package com.alissw.regulatory.entities;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import com.alissw.regulatory.entities.enums.Status;
@@ -25,13 +26,13 @@ public class EmployeeTraining {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeTraining(Employee employee, Training training, Instant startDate, Instant endDate, Status status) {
+	public EmployeeTraining(Employee employee, Training training, Instant startDate, Instant endDate) {
 		super();
 		id.setEmployee(employee);
 		id.setTraining(training);
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.status = status.getValue();
+		setStatus();
 	}
 
 	public void setEmployee(Employee employee) {
@@ -70,10 +71,17 @@ public class EmployeeTraining {
 		return Status.toEnum(status);
 	}
 
-	public void setStatus(Status status) {
-		this.status = status.getValue();
+	private void setStatus() {		
+		if(getDays()<0) {
+			this.status = Status.DOWN.getValue();
+		}else {
+			this.status = Status.UP.getValue();
+		}
 	}
 
+	public Long getDays() {
+		return ChronoUnit.DAYS.between(Instant.now(), endDate);
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
