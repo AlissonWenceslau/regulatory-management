@@ -2,8 +2,10 @@ package com.alissw.regulatory.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +41,9 @@ public class Employee implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "position_id")
 	private Position position;
+	
+	@OneToMany(mappedBy = "id.employee")
+	private Set<EmployeeTraining> trainings = new HashSet<>();
 	
 	public Employee() {
 		// TODO Auto-generated constructor stub
@@ -131,6 +136,12 @@ public class Employee implements Serializable{
 		this.position = position;
 	}
 
+	public Set<Training> getTrainings(){
+		Set<Training> list = new HashSet<>();
+		trainings.forEach(x -> list.add(x.getTraining()));
+		return list;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
