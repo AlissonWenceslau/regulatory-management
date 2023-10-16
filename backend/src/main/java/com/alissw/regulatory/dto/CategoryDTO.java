@@ -1,11 +1,14 @@
 package com.alissw.regulatory.dto;
 
+import java.io.Serializable;
+
 import com.alissw.regulatory.entities.Category;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class CategoryDTO {
-
+public class CategoryDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private Long id;
 	@NotBlank
 	private String name;
