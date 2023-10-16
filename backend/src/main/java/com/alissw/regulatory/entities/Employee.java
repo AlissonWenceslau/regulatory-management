@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.alissw.regulatory.entities.enums.Shift;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +30,7 @@ public class Employee implements Serializable{
 	private Long indentification;
 	private Integer codeArea;
 	private Long phone;
+	private Integer shift;
 	
 	@ManyToOne
 	@JoinColumn(name = "position_id")
@@ -40,7 +43,7 @@ public class Employee implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(Long id, Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone) {
+	public Employee(Long id, Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone, Shift shift) {
 		super();
 		this.id = id;
 		this.registration = registration;
@@ -49,6 +52,7 @@ public class Employee implements Serializable{
 		this.indentification = indentification;
 		this.codeArea = codeArea;
 		this.phone = phone;
+		this.shift = shift.getValue();
 	}
 
 	public Long getId() {
@@ -105,6 +109,14 @@ public class Employee implements Serializable{
 
 	public void setPhone(Long phone) {
 		this.phone = phone;
+	}
+
+	public Shift getShift() {
+		return Shift.toEnum(shift);
+	}
+
+	public void setShift(Shift shift) {
+		this.shift = shift.getValue();
 	}
 
 	public Position getPosition() {

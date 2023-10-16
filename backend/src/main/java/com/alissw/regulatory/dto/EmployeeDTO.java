@@ -14,18 +14,20 @@ public class EmployeeDTO implements Serializable {
 	private Long registration;
 	private String firstName;
 	private String lastName;
+	private String shift;
 	private List<EmployeeTrainingDTO> trainings = new ArrayList<>();
 	
 	public EmployeeDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeDTO(Long id, Long registration, String firstName, String lastName) {
+	public EmployeeDTO(Long id, Long registration, String firstName, String lastName, String shift) {
 		super();
 		this.id = id;
 		this.registration = registration;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.shift = shift;
 	}
 	
 	public EmployeeDTO(Employee entity) {
@@ -34,6 +36,7 @@ public class EmployeeDTO implements Serializable {
 		registration = entity.getRegistration();
 		firstName = entity.getFirstName();
 		lastName = entity.getLastName();
+		shift = entity.getShift().getDescription();
 		for(EmployeeTraining x : entity.getEmployees()) {
 			this.trainings.add(new EmployeeTrainingDTO(x));
 		}
@@ -53,6 +56,14 @@ public class EmployeeDTO implements Serializable {
 
 	public String getLastName() {
 		return lastName;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getShift() {
+		return shift;
 	}
 
 	public List<EmployeeTrainingDTO> getTrainings() {
