@@ -11,7 +11,7 @@ public class EmployeeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private Long registration;
+	private Long employeeID;
 	private String firstName;
 	private String lastName;
 	private String shift;
@@ -24,7 +24,7 @@ public class EmployeeDTO implements Serializable {
 	public EmployeeDTO(Long id, Long registration, String firstName, String lastName, String shift) {
 		super();
 		this.id = id;
-		this.registration = registration;
+		this.employeeID = registration;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.shift = shift;
@@ -33,7 +33,7 @@ public class EmployeeDTO implements Serializable {
 	public EmployeeDTO(Employee entity) {
 		super();
 		id = entity.getId();
-		registration = entity.getRegistration();
+		employeeID = entity.getEmployeeID();
 		firstName = entity.getFirstName();
 		lastName = entity.getLastName();
 		shift = entity.getShift().getDescription();
@@ -46,8 +46,8 @@ public class EmployeeDTO implements Serializable {
 		return id;
 	}
 
-	public Long getRegistration() {
-		return registration;
+	public Long getEmployeeID() {
+		return employeeID;
 	}
 
 	public String getFirstName() {
@@ -56,10 +56,6 @@ public class EmployeeDTO implements Serializable {
 
 	public String getLastName() {
 		return lastName;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public String getShift() {

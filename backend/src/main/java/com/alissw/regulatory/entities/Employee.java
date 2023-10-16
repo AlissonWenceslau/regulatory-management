@@ -24,7 +24,7 @@ public class Employee implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long registration;
+	private Long employeeID;
 	private String firstName;
 	private String lastName;
 	private Long indentification;
@@ -46,7 +46,7 @@ public class Employee implements Serializable{
 	public Employee(Long id, Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone, Shift shift) {
 		super();
 		this.id = id;
-		this.registration = registration;
+		this.employeeID = registration;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.indentification = indentification;
@@ -63,12 +63,12 @@ public class Employee implements Serializable{
 		this.id = id;
 	}
 
-	public Long getRegistration() {
-		return registration;
+	public Long getEmployeeID() {
+		return employeeID;
 	}
 
-	public void setRegistration(Long registration) {
-		this.registration = registration;
+	public void setEmployeeID(Long registration) {
+		this.employeeID = registration;
 	}
 
 	public String getFirstName() {
