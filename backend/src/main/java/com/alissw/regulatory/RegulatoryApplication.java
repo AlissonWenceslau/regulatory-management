@@ -62,24 +62,19 @@ public class RegulatoryApplication implements CommandLineRunner{
 		Employee e1 = new Employee(null, 14290L, "Alisson", "Wenceslau", 996872155L, 47, 974327563L);
 		Employee e2 = new Employee(null, 13898L, "João", "Silva", 97654345L, 47, 987654321L);
 		Employee e3 = new Employee(null, 13520L, "Manuel", "Carvalho", 96321320L, 47, 987654321L);
-		Employee e4 = new Employee(null, 22990L, "Fabio", "Constantino", 873450985434L, 48, 98645211L);
-		Employee e5 = new Employee(null, 30988L, "Ana", "Domingues", 76459832351L, 47, 96543897L);
+		Employee e4 = new Employee(null, 30988L, "Ana", "Domingues", 76459832351L, 47, 96543897L);
 		
 		p1.getEmployees().addAll(Arrays.asList(e1, e4));
 		p2.getEmployees().addAll(Arrays.asList(e2));
-		p3.getEmployees().addAll(Arrays.asList(e5));
+		p3.getEmployees().addAll(Arrays.asList(e4));
 		e1.setPosition(p1);
 		e2.setPosition(p2);
-		e2.setManager(e1);
 		e3.setPosition(p2);
-		e3.setManager(e1);
-		e4.setPosition(p1);
-		e5.setPosition(p3);
-		e5.setManager(e4);
+		e4.setPosition(p3);
 		
 		
 		positionRepository.saveAll(Arrays.asList(p1, p2, p3));
-		employeeRepository.saveAll(Arrays.asList(e1, e2, e3, e4, e5));
+		employeeRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
 		
 		//Employee e1
 		EmployeeTraining et1 = new EmployeeTraining(e1, t1, Instant.parse("2022-04-03T00:00:00Z"), Instant.parse("2025-04-03T00:00:00Z"));
@@ -96,12 +91,12 @@ public class RegulatoryApplication implements CommandLineRunner{
 		EmployeeTraining et8 = new EmployeeTraining(e3, t1, Instant.parse("2023-07-18T00:00:00Z"), Instant.parse("2026-07-18T00:00:00Z"));
 		
 		//Employee 5 (O 4 não tem treinamento)
-		EmployeeTraining et9 = new EmployeeTraining(e5, t1, Instant.parse("2023-07-18T00:00:00Z"), Instant.parse("2026-07-18T00:00:00Z"));
+		EmployeeTraining et9 = new EmployeeTraining(e4, t1, Instant.parse("2023-07-18T00:00:00Z"), Instant.parse("2026-07-18T00:00:00Z"));
 		
 		e1.getEmployees().addAll(Arrays.asList(et1, et2));
 		e2.getEmployees().addAll(Arrays.asList(et3, et4, et5));
 		e3.getEmployees().addAll(Arrays.asList(et6, et7, et8));
-		e5.getEmployees().addAll(Arrays.asList(et9));
+		e4.getEmployees().addAll(Arrays.asList(et9));
 		
 		t1.getTrainings().addAll(Arrays.asList(et1, et3, et8, et9));
 		t2.getTrainings().addAll(Arrays.asList(et2, et4, et6));

@@ -1,9 +1,7 @@
 package com.alissw.regulatory.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,13 +28,6 @@ public class Employee implements Serializable{
 	private Long indentification;
 	private Integer codeArea;
 	private Long phone;
-	
-	@ManyToOne
-	@JoinColumn(name = "manager_id")
-	private Employee manager;
-	
-	@OneToMany(mappedBy = "manager")
-	List<Employee> collaborators = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "position_id")
@@ -114,18 +105,6 @@ public class Employee implements Serializable{
 
 	public void setPhone(Long phone) {
 		this.phone = phone;
-	}
-
-	public Employee getManager() {
-		return manager;
-	}
-
-	public void setManager(Employee manager) {
-		this.manager = manager;
-	}
-
-	public List<Employee> getCollaborators() {
-		return collaborators;
 	}
 
 	public Position getPosition() {
