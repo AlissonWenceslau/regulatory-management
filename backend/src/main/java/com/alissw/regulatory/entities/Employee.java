@@ -32,6 +32,7 @@ public class Employee implements Serializable{
 	private Long phone;
 	private Integer shift;
 	
+	@ManyToOne
 	private Department department;
 	
 	@ManyToOne
