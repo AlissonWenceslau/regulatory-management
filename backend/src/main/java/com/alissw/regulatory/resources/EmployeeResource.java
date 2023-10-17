@@ -1,5 +1,7 @@
 package com.alissw.regulatory.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,12 @@ public class EmployeeResource {
 
 	@Autowired
 	private EmployeeService service;
+	
+	@GetMapping
+	public ResponseEntity<List<EmployeeDTO>> findEmployeesDownTraining(){
+		List<EmployeeDTO> dto = service.findEmployeeDownTraining();
+		return ResponseEntity.ok().body(dto);
+	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<EmployeeDTO> findById(@PathVariable Long id){
