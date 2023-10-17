@@ -15,19 +15,25 @@ public class EmployeeDTO implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String shift;
+	private PositionDTO position;
+	private DepartmentDTO department;
+	private SiteDTO site;
 	private List<EmployeeTrainingDTO> trainings = new ArrayList<>();
 	
 	public EmployeeDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeDTO(Long id, Long registration, String firstName, String lastName, String shift) {
+	public EmployeeDTO(Long id, Long registration, String firstName, String lastName, PositionDTO position, String shift, DepartmentDTO department, SiteDTO site) {
 		super();
 		this.id = id;
 		this.employeeID = registration;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.shift = shift;
+		this.department = department;
+		this.position = position;
+		this.site = site;
 	}
 	
 	public EmployeeDTO(Employee entity) {
@@ -37,6 +43,9 @@ public class EmployeeDTO implements Serializable {
 		firstName = entity.getFirstName();
 		lastName = entity.getLastName();
 		shift = entity.getShift().getDescription();
+		department = new DepartmentDTO(entity.getDepartment());
+		position = new PositionDTO(entity.getPosition());
+		site = new SiteDTO(entity.getSite());
 		for(EmployeeTraining x : entity.getEmployees()) {
 			this.trainings.add(new EmployeeTrainingDTO(x));
 		}
@@ -60,6 +69,18 @@ public class EmployeeDTO implements Serializable {
 
 	public String getShift() {
 		return shift;
+	}
+	
+	public DepartmentDTO getDepartment() {
+		return department;
+	}
+
+	public PositionDTO getPosition() {
+		return position;
+	}
+	
+	public SiteDTO getSite() {
+		return site;
 	}
 
 	public List<EmployeeTrainingDTO> getTrainings() {

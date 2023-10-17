@@ -32,6 +32,12 @@ public class Employee implements Serializable{
 	private Long phone;
 	private Integer shift;
 	
+	private Department department;
+	
+	@ManyToOne
+	@JoinColumn(name = "site_id")
+	private Site site;
+	
 	@ManyToOne
 	@JoinColumn(name = "position_id")
 	private Position position;
@@ -43,7 +49,7 @@ public class Employee implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(Long id, Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone, Shift shift) {
+	public Employee(Long id, Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone, Shift shift, Department department, Site site) {
 		super();
 		this.id = id;
 		this.employeeID = registration;
@@ -53,6 +59,8 @@ public class Employee implements Serializable{
 		this.codeArea = codeArea;
 		this.phone = phone;
 		this.shift = shift.getValue();
+		this.department = department;
+		this.site = site;
 	}
 
 	public Long getId() {
@@ -119,8 +127,24 @@ public class Employee implements Serializable{
 		this.shift = shift.getValue();
 	}
 
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 	public Position getPosition() {
 		return position;
+	}
+
+	public Site getSite() {
+		return site;
+	}
+
+	public void setSite(Site site) {
+		this.site = site;
 	}
 
 	public void setPosition(Position position) {

@@ -9,15 +9,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.alissw.regulatory.entities.Category;
+import com.alissw.regulatory.entities.Department;
 import com.alissw.regulatory.entities.Employee;
 import com.alissw.regulatory.entities.EmployeeTraining;
 import com.alissw.regulatory.entities.Position;
+import com.alissw.regulatory.entities.Site;
 import com.alissw.regulatory.entities.Training;
 import com.alissw.regulatory.entities.enums.Shift;
 import com.alissw.regulatory.repositories.CategoryRepository;
+import com.alissw.regulatory.repositories.DepartmentRepository;
 import com.alissw.regulatory.repositories.EmployeeRepository;
 import com.alissw.regulatory.repositories.EmployeeTrainingRepository;
 import com.alissw.regulatory.repositories.PositionRepository;
+import com.alissw.regulatory.repositories.SiteRepository;
 import com.alissw.regulatory.repositories.TrainingRepository;
 
 @SpringBootApplication
@@ -33,6 +37,10 @@ public class RegulatoryApplication implements CommandLineRunner{
 	private EmployeeRepository employeeRepository;
 	@Autowired
 	private EmployeeTrainingRepository employeeTrainingRepository;
+	@Autowired
+	private DepartmentRepository departmentRepository;
+	@Autowired
+	private SiteRepository siteRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(RegulatoryApplication.class, args);
@@ -40,6 +48,15 @@ public class RegulatoryApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Department d1 = new Department(null, "Manufatura");
+		
+		departmentRepository.saveAll(Arrays.asList(d1));
+		
+		Site s1 = new Site(null, "Joinville");
+		Site s2 = new Site(null, "Florianópolis");
+		
+		siteRepository.saveAll(Arrays.asList(s1, s2));
 		
 		Category c1 = new Category(null, "NR11");
 		Category c2 = new Category(null, "NR12");
@@ -60,19 +77,22 @@ public class RegulatoryApplication implements CommandLineRunner{
 		Position p1 = new Position(null, "Supervisor");
 		Position p2 = new Position(null, "Preparador");
 		Position p3 = new Position(null, "Operador de Manufatura");
-		Employee e1 = new Employee(null, 14290L, "Alisson", "Wenceslau", 996872155L, 47, 974327563L, Shift.MORNING);
-		Employee e2 = new Employee(null, 13898L, "João", "Silva", 97654345L, 47, 987654321L, Shift.AFTERNOON);
-		Employee e3 = new Employee(null, 13520L, "Manuel", "Carvalho", 96321320L, 47, 987654321L, Shift.NIGHT);
-		Employee e4 = new Employee(null, 30988L, "Ana", "Domingues", 76459832351L, 47, 96543897L, Shift.COMMERCIAL);
+		Employee e1 = new Employee(null, 14290L, "Alisson", "Wenceslau", 996872155L, 47, 974327563L, Shift.MORNING, d1, s1);
+		Employee e2 = new Employee(null, 13898L, "João", "Silva", 97654345L, 47, 987654321L, Shift.AFTERNOON, d1,  s1);
+		Employee e3 = new Employee(null, 13520L, "Manuel", "Carvalho", 96321320L, 47, 987654321L, Shift.NIGHT, d1, s2);
+		Employee e4 = new Employee(null, 30988L, "Ana", "Domingues", 76459832351L, 47, 96543897L, Shift.COMMERCIAL, d1, s2);
 		
 		p1.getEmployees().addAll(Arrays.asList(e1, e4));
 		p2.getEmployees().addAll(Arrays.asList(e2));
 		p3.getEmployees().addAll(Arrays.asList(e4));
 		e1.setPosition(p1);
+		e1.setDepartment(d1);
 		e2.setPosition(p2);
+		e2.setDepartment(d1);
 		e3.setPosition(p2);
-		e4.setPosition(p3);
-		
+		e3.setDepartment(d1);
+		e4.setPosition(p3);	
+		e4.setDepartment(d1);
 		
 		positionRepository.saveAll(Arrays.asList(p1, p2, p3));
 		employeeRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
