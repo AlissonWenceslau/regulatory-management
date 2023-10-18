@@ -2,30 +2,30 @@ package com.alissw.regulatory.dto;
 
 import java.io.Serializable;
 
-import com.alissw.regulatory.entities.Category;
+import com.alissw.regulatory.entities.Training;
 
-import jakarta.validation.constraints.NotBlank;
-
-public class CategoryDTO implements Serializable {
+public class TrainingDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	@NotBlank
 	private String name;
+	private CategoryDTO category;
 	
-	public CategoryDTO() {
+	public TrainingDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CategoryDTO(Long id, String name) {
+	public TrainingDTO(Long id, String name, CategoryDTO category) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.category = category;
 	}
 	
-	public CategoryDTO(Category entity) {
+	public TrainingDTO(Training entity) {
 		id = entity.getId();
 		name = entity.getName();
+		category = new CategoryDTO(entity.getCategory());
 	}
 
 	public Long getId() {
@@ -34,5 +34,9 @@ public class CategoryDTO implements Serializable {
 
 	public String getName() {
 		return name;
+	}
+
+	public CategoryDTO getCategory() {
+		return category;
 	}
 }

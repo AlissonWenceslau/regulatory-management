@@ -1,9 +1,11 @@
 package com.alissw.regulatory.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import com.alissw.regulatory.entities.enums.Shift;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,40 +24,44 @@ public class Employee implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long registration;
+	private Long employeeID;
 	private String firstName;
 	private String lastName;
 	private Long indentification;
 	private Integer codeArea;
 	private Long phone;
+	private Integer shift;
 	
 	@ManyToOne
-	@JoinColumn(name = "manager_id")
-	private Employee manager;
+	private Department department;
 	
-	@OneToMany(mappedBy = "manager")
-	List<Employee> employees = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "site_id")
+	private Site site;
 	
 	@ManyToOne
 	@JoinColumn(name = "position_id")
 	private Position position;
 	
-	@OneToMany(mappedBy = "employee")
-	private List<Registry> records = new ArrayList<>();
+	@OneToMany(mappedBy = "id.employee")
+	private Set<EmployeeTraining> employees = new HashSet<>();
 	
 	public Employee() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(Long id, Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone) {
+	public Employee(Long id, Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone, Shift shift, Department department, Site site) {
 		super();
 		this.id = id;
-		this.registration = registration;
+		this.employeeID = registration;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.indentification = indentification;
 		this.codeArea = codeArea;
 		this.phone = phone;
+		this.shift = shift.getValue();
+		this.department = department;
+		this.site = site;
 	}
 
 	public Long getId() {
@@ -66,12 +72,12 @@ public class Employee implements Serializable{
 		this.id = id;
 	}
 
-	public Long getRegistration() {
-		return registration;
+	public Long getEmployeeID() {
+		return employeeID;
 	}
 
-	public void setRegistration(Long registration) {
-		this.registration = registration;
+	public void setEmployeeID(Long registration) {
+		this.employeeID = registration;
 	}
 
 	public String getFirstName() {
@@ -114,30 +120,48 @@ public class Employee implements Serializable{
 		this.phone = phone;
 	}
 
-	public Employee getManager() {
-		return manager;
+	public Shift getShift() {
+		return Shift.toEnum(shift);
 	}
 
-	public void setManager(Employee manager) {
-		this.manager = manager;
+	public void setShift(Shift shift) {
+		this.shift = shift.getValue();
 	}
 
-	public List<Employee> getEmployees() {
-		return employees;
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public Position getPosition() {
 		return position;
 	}
 
+	public Site getSite() {
+		return site;
+	}
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
+
 	public void setPosition(Position position) {
 		this.position = position;
 	}
 
-	public List<Registry> getRecords() {
-		return records;
+	public Set<EmployeeTraining> getEmployees() {
+		return employees;
 	}
 
+	public Set<Training> getTrainings(){
+		Set<Training> list = new HashSet<>();
+		employees.forEach(x -> list.add(x.getTraining()));
+		return list;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

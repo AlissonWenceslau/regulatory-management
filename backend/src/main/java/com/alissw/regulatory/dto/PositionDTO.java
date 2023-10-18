@@ -1,10 +1,13 @@
 package com.alissw.regulatory.dto;
 
+import java.io.Serializable;
+
 import com.alissw.regulatory.entities.Position;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class PositionDTO {
+public class PositionDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	@NotBlank

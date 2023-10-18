@@ -1,22 +1,17 @@
 package com.alissw.regulatory.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Trainings")
-public class Training implements Serializable{
+@Table(name = "Departments")
+public class Department implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -24,18 +19,11 @@ public class Training implements Serializable{
 	private Long id;
 	private String name;
 	
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
-	
-	@OneToMany(mappedBy = "id.training")
-	private Set<EmployeeTraining> trainings = new HashSet<>();
-	
-	public Training() {
+	public Department() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Training(Long id, String name) {
+	public Department(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,18 +45,6 @@ public class Training implements Serializable{
 		this.name = name;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public Set<EmployeeTraining> getTrainings() {
-		return trainings;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -82,7 +58,7 @@ public class Training implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Training other = (Training) obj;
+		Department other = (Department) obj;
 		return Objects.equals(id, other.id);
 	}
 }
