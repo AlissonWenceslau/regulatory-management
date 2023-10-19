@@ -77,10 +77,10 @@ public class RegulatoryApplication implements CommandLineRunner{
 		Position p1 = new Position(null, "Supervisor");
 		Position p2 = new Position(null, "Preparador");
 		Position p3 = new Position(null, "Operador de Manufatura");
-		Employee e1 = new Employee(null, 14290L, "Alisson", "Wenceslau", 996872155L, 47, 974327563L, Shift.MORNING, d1, s1);
-		Employee e2 = new Employee(null, 13898L, "João", "Silva", 97654345L, 47, 987654321L, Shift.AFTERNOON, d1,  s1);
-		Employee e3 = new Employee(null, 13520L, "Manuel", "Carvalho", 96321320L, 47, 987654321L, Shift.NIGHT, d1, s2);
-		Employee e4 = new Employee(null, 30988L, "Ana", "Domingues", 76459832351L, 47, 96543897L, Shift.COMMERCIAL, d1, s2);
+		Employee e1 = new Employee(14290L, "Alisson", "Wenceslau", 996872155L, 47, 974327563L, Shift.MORNING, d1, s1);
+		Employee e2 = new Employee(13898L, "João", "Silva", 97654345L, 47, 987654321L, Shift.AFTERNOON, d1,  s1);
+		Employee e3 = new Employee(13520L, "Manuel", "Carvalho", 96321320L, 47, 987654321L, Shift.NIGHT, d1, s2);
+		Employee e4 = new Employee(30988L, "Ana", "Domingues", 76459832351L, 47, 96543897L, Shift.COMMERCIAL, d1, s2);
 		
 		p1.getEmployees().addAll(Arrays.asList(e1, e4));
 		p2.getEmployees().addAll(Arrays.asList(e2));

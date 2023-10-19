@@ -7,6 +7,7 @@ import com.alissw.regulatory.entities.EmployeeTraining;
 public class EmployeeTrainingDTO {
 
 	private TrainingDTO training;
+	private Instant startDate;
 	private Instant endDate;
 	private String status;
 	
@@ -14,22 +15,29 @@ public class EmployeeTrainingDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeTrainingDTO(TrainingDTO training, Instant endDate, String status) {
+	public EmployeeTrainingDTO(TrainingDTO training, Instant endDate, Instant startDate, String status) {
 		super();
 		this.training = training;
+		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;
+		
 	}
 	
 	public EmployeeTrainingDTO(EmployeeTraining entity) {
 		super();
 		this.training = new TrainingDTO(entity.getTraining());
+		this.startDate = entity.getStartDate();
 		this.endDate = entity.getEndDate();
 		this.status = entity.getStatus().getDescription();
 	}
 
 	public TrainingDTO getTraining() {
 		return training;
+	}
+
+	public Instant getStartDate() {
+		return startDate;
 	}
 
 	public Instant getEndDate() {

@@ -10,7 +10,6 @@ import com.alissw.regulatory.entities.EmployeeTraining;
 public class EmployeeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
 	private Long employeeID;
 	private String firstName;
 	private String lastName;
@@ -24,9 +23,8 @@ public class EmployeeDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeDTO(Long id, Long registration, String firstName, String lastName, PositionDTO position, String shift, DepartmentDTO department, SiteDTO site) {
+	public EmployeeDTO(Long registration, String firstName, String lastName, PositionDTO position, String shift, DepartmentDTO department, SiteDTO site) {
 		super();
-		this.id = id;
 		this.employeeID = registration;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -38,7 +36,6 @@ public class EmployeeDTO implements Serializable {
 	
 	public EmployeeDTO(Employee entity) {
 		super();
-		id = entity.getId();
 		employeeID = entity.getEmployeeID();
 		firstName = entity.getFirstName();
 		lastName = entity.getLastName();
@@ -49,10 +46,6 @@ public class EmployeeDTO implements Serializable {
 		for(EmployeeTraining x : entity.getEmployees()) {
 			this.trainings.add(new EmployeeTrainingDTO(x));
 		}
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public Long getEmployeeID() {

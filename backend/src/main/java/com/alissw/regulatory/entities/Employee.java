@@ -8,8 +8,6 @@ import java.util.Set;
 import com.alissw.regulatory.entities.enums.Shift;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -22,8 +20,6 @@ public class Employee implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	private Long employeeID;
 	private String firstName;
 	private String lastName;
@@ -50,9 +46,8 @@ public class Employee implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(Long id, Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone, Shift shift, Department department, Site site) {
+	public Employee(Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone, Shift shift, Department department, Site site) {
 		super();
-		this.id = id;
 		this.employeeID = registration;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -62,14 +57,6 @@ public class Employee implements Serializable{
 		this.shift = shift.getValue();
 		this.department = department;
 		this.site = site;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Long getEmployeeID() {
@@ -161,10 +148,10 @@ public class Employee implements Serializable{
 		employees.forEach(x -> list.add(x.getTraining()));
 		return list;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(employeeID);
 	}
 
 	@Override
@@ -176,6 +163,6 @@ public class Employee implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(employeeID, other.employeeID);
 	}
 }
