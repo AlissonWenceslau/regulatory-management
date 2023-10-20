@@ -57,4 +57,9 @@ public class EmployeeResource {
 		service.delete(id);
 		return ResponseEntity.ok().build();
 	}
+	
+	@GetMapping(value = "/updateTableEmployeeTraining")
+	public void updateTableEmployeeTrainigBasedActualDate() {
+		service.updateTableEmployeeTrainigBasedActualDate();
+	}
 }

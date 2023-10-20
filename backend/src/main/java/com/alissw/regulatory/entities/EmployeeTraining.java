@@ -71,7 +71,7 @@ public class EmployeeTraining {
 		return Status.toEnum(status);
 	}
 
-	private void setStatus() {		
+	public void setStatus() {		
 		if(getDays()<0) {
 			this.status = Status.DOWN.getValue();
 		}else {

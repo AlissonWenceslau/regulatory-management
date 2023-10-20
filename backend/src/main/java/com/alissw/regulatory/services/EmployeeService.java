@@ -1,5 +1,6 @@
 package com.alissw.regulatory.services;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -120,5 +121,16 @@ public class EmployeeService {
 			entity.getEmployees().add(employeeTraining);
 			training.getTrainings().add(employeeTraining);
 		}
+	}
+	
+	@Transactional
+	public void updateTableEmployeeTrainigBasedActualDate() {
+		List<EmployeeTraining> entity = employeeTrainingRepository.findAll();
+		for(EmployeeTraining emp : entity) {
+			if(emp.getDays()<0) {
+				emp.setStatus();
+			}
+		}
+		System.out.println("A tabela de EmployeeTraining Foi atualizada hoje: " + Instant.now());
 	}
 }
