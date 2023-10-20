@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.alissw.regulatory.entities.enums.Shift;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -39,7 +40,7 @@ public class Employee implements Serializable{
 	@JoinColumn(name = "position_id")
 	private Position position;
 	
-	@OneToMany(mappedBy = "id.employee")
+	@OneToMany(mappedBy = "id.employee", cascade = CascadeType.ALL)
 	private Set<EmployeeTraining> employees = new HashSet<>();
 	
 	public Employee() {

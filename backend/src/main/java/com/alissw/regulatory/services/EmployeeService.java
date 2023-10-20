@@ -84,6 +84,14 @@ public class EmployeeService {
 		
 	}
 	
+	@Transactional
+	public void delete(Long id) {
+		if(!repository.existsById(id)) {
+			throw new ResourceNotFoundException("Id not found: " + id);
+		}
+		repository.deleteById(id);
+	}
+	
 	private void copyToEntity(EmployeeInsertDTO dto, Employee entity) {
 		entity.setEmployeeID(dto.getEmployeeID());
 		entity.setFirstName(dto.getFirstName());
