@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.alissw.regulatory.entities.Employee;
 import com.alissw.regulatory.entities.EmployeeTraining;
+import com.alissw.regulatory.entities.enums.Shift;
 
 public class EmployeeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -13,7 +14,7 @@ public class EmployeeDTO implements Serializable {
 	private Long employeeID;
 	private String firstName;
 	private String lastName;
-	private String shift;
+	private Shift shift;
 	private PositionDTO position;
 	private DepartmentDTO department;
 	private SiteDTO site;
@@ -23,7 +24,7 @@ public class EmployeeDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeDTO(Long registration, String firstName, String lastName, PositionDTO position, String shift, DepartmentDTO department, SiteDTO site) {
+	public EmployeeDTO(Long registration, String firstName, String lastName, PositionDTO position, Shift shift, DepartmentDTO department, SiteDTO site) {
 		super();
 		this.employeeID = registration;
 		this.firstName = firstName;
@@ -39,7 +40,7 @@ public class EmployeeDTO implements Serializable {
 		employeeID = entity.getEmployeeID();
 		firstName = entity.getFirstName();
 		lastName = entity.getLastName();
-		shift = entity.getShift().getDescription();
+		shift = entity.getShift();
 		department = new DepartmentDTO(entity.getDepartment());
 		position = new PositionDTO(entity.getPosition());
 		site = new SiteDTO(entity.getSite());
@@ -60,7 +61,7 @@ public class EmployeeDTO implements Serializable {
 		return lastName;
 	}
 
-	public String getShift() {
+	public Shift getShift() {
 		return shift;
 	}
 	
