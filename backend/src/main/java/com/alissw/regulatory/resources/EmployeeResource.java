@@ -17,6 +17,8 @@ import com.alissw.regulatory.dto.EmployeeDTO;
 import com.alissw.regulatory.dto.EmployeeInsertDTO;
 import com.alissw.regulatory.services.EmployeeService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/employees")
 public class EmployeeResource {
@@ -41,7 +43,7 @@ public class EmployeeResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody EmployeeInsertDTO dto){
+	public ResponseEntity<Void> insert(@Valid @RequestBody EmployeeInsertDTO dto){
 		service.insert(dto);
 		return ResponseEntity.created(null).build();
 	}

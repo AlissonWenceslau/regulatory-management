@@ -2,11 +2,19 @@ package com.alissw.regulatory.dto;
 
 import com.alissw.regulatory.entities.enums.Shift;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class EmployeeInsertDTO extends EmployeeDTO{
 	private static final long serialVersionUID = 1L;
 
+	@NotNull(message = "Code area is mandatory")
+	@Min(1)@Max(99)
 	private Integer codeArea;
+	@NotNull(message = "Identification is mandatory")
 	private Long identification;
+	@NotNull(message = "Phone is mandatory")
 	private Long phone;
 	
 	public EmployeeInsertDTO() {

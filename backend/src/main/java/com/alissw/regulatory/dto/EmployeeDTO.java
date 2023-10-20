@@ -8,16 +8,31 @@ import com.alissw.regulatory.entities.Employee;
 import com.alissw.regulatory.entities.EmployeeTraining;
 import com.alissw.regulatory.entities.enums.Shift;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class EmployeeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long employeeID;
+	@NotBlank(message = "First name is mandatory")
+	@Size(min = 2, message = "Minimum character number: 2")
+	@Size(max = 40, message = "Maximum character number: 40")
 	private String firstName;
+	@NotBlank(message = "Last name is mandatory")
+	@Size(min = 2, message = "Minimum character number: 2")
+	@Size(max = 40, message = "Maximum character number: 40")
 	private String lastName;
+	@NotNull(message = "Shift is mandatory")
 	private Shift shift;
+	@NotNull(message = "Position is mandatory")
 	private PositionDTO position;
+	@NotNull(message = "Department is mandatory")
 	private DepartmentDTO department;
+	@NotNull(message = "Site is mandatory")
 	private SiteDTO site;
+	@Size(max = 1, message = "Its not possible registry more then one training!")
 	private List<EmployeeTrainingDTO> trainings = new ArrayList<>();
 	
 	public EmployeeDTO() {
