@@ -12,8 +12,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alissw.regulatory.dto.EmployeeDTO;
+import com.alissw.regulatory.dto.EmployeeInsertDTO;
+import com.alissw.regulatory.dto.EmployeeTrainingDTO;
+import com.alissw.regulatory.entities.Department;
 import com.alissw.regulatory.entities.Employee;
+import com.alissw.regulatory.entities.EmployeeTraining;
+import com.alissw.regulatory.entities.Position;
+import com.alissw.regulatory.entities.Site;
+import com.alissw.regulatory.entities.Training;
+import com.alissw.regulatory.repositories.DepartmentRepository;
 import com.alissw.regulatory.repositories.EmployeeRepository;
+import com.alissw.regulatory.repositories.EmployeeTrainingRepository;
+import com.alissw.regulatory.repositories.PositionRepository;
+import com.alissw.regulatory.repositories.SiteRepository;
+import com.alissw.regulatory.repositories.TrainingRepository;
+import com.alissw.regulatory.services.exceptions.DatabaseException;
 import com.alissw.regulatory.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -21,6 +34,16 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository repository;
+	@Autowired
+	private PositionRepository positionRepository;
+	@Autowired
+	private DepartmentRepository departmentRepository;
+	@Autowired
+	private SiteRepository siteRepository;
+	@Autowired
+	private TrainingRepository trainingRepository;
+	@Autowired
+	private EmployeeTrainingRepository employeeTrainingRepository;
 	
 	@Transactional(readOnly = true)
 	public EmployeeDTO findById(Long id) {
@@ -41,6 +64,45 @@ public class EmployeeService {
 			return page.map(x -> new EmployeeDTO(x));
 		}catch (IllegalArgumentException e) {
 			throw new ResourceNotFoundException("Resource not found");
+		}
+	}
+	
+	@Transactional
+	public void insert (EmployeeInsertDTO dto) {
+		if(repository.existsById(dto.getEmployeeID())) {
+			throw new DatabaseException("EmployeeId already exists: " + dto.getEmployeeID());
+		}
+		Employee entity = new Employee();
+		copyToEntity(dto, entity);
+	}
+	
+	private void copyToEntity(EmployeeInsertDTO dto, Employee entity) {
+		entity.setEmployeeID(dto.getEmployeeID());
+		entity.setFirstName(dto.getFirstName());
+		entity.setLastName(dto.getLastName());
+		entity.setIndentification(dto.getIdentification());
+		entity.setCodeArea(dto.getCodeArea());
+		entity.setPhone(dto.getPhone());
+		entity.setShift(dto.getShift());
+		
+		Position position = positionRepository.getReferenceById(dto.getPosition().getId());
+		entity.setPosition(position);
+		
+		Department department = departmentRepository.getReferenceById(dto.getDepartment().getId());
+		entity.setDepartment(department);
+		
+		Site site = siteRepository.getReferenceById(dto.getDepartment().getId());
+		entity.setSite(site);
+		
+		entity = repository.save(entity);
+		
+		entity.getEmployees().clear();
+		for(EmployeeTrainingDTO emp : dto.getTrainings()) {
+			Training training = trainingRepository.getReferenceById(emp.getTraining().getId());
+			EmployeeTraining employeeTraining = new EmployeeTraining(entity, training, emp.getStartDate(), emp.getEndDate());
+			employeeTraining = employeeTrainingRepository.save(employeeTraining);
+			entity.getEmployees().add(employeeTraining);
+			training.getTrainings().add(employeeTraining);
 		}
 	}
 }
