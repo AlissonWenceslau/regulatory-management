@@ -76,6 +76,14 @@ public class EmployeeService {
 		copyToEntity(dto, entity);
 	}
 	
+	@Transactional
+	public EmployeeDTO update(Long id, EmployeeInsertDTO dto) {
+		Employee entity = repository.getReferenceById(id);		
+		copyToEntity(dto, entity);
+		return new EmployeeDTO(entity);
+		
+	}
+	
 	private void copyToEntity(EmployeeInsertDTO dto, Employee entity) {
 		entity.setEmployeeID(dto.getEmployeeID());
 		entity.setFirstName(dto.getFirstName());
