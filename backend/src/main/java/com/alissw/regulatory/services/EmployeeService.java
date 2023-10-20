@@ -108,7 +108,7 @@ public class EmployeeService {
 		Department department = departmentRepository.getReferenceById(dto.getDepartment().getId());
 		entity.setDepartment(department);
 		
-		Site site = siteRepository.getReferenceById(dto.getDepartment().getId());
+		Site site = siteRepository.getReferenceById(dto.getSite().getId());
 		entity.setSite(site);
 		
 		entity = repository.save(entity);

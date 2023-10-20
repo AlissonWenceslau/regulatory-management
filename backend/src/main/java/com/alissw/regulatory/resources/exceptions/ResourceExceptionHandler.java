@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.alissw.regulatory.services.exceptions.DatabaseException;
 import com.alissw.regulatory.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
@@ -32,7 +33,7 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(DatabaseException.class)
-	public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest request){
+	public ResponseEntity<StandardError> databaseException(DatabaseException e, HttpServletRequest request){
 		HttpStatus status = HttpStatus.CONFLICT;
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
@@ -41,8 +42,20 @@ public class ResourceExceptionHandler {
 		err.setMessage(e.getMessage());
 		err.setPath(request.getRequestURI());
 		
-		return ResponseEntity.status(status).body(err);
+		return ResponseEntity.status(status).body(err);	
+	}
+	
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<StandardError> entityNotFound(EntityNotFoundException e, HttpServletRequest request){
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("Entity not found");
+		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
 		
+		return ResponseEntity.status(status).body(err);	
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
