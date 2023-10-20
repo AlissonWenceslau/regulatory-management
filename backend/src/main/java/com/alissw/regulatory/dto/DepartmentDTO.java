@@ -4,10 +4,13 @@ import java.io.Serializable;
 
 import com.alissw.regulatory.entities.Department;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class DepartmentDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@NotBlank(message = "Name is mandatory")
 	private String name;
 	
 	public DepartmentDTO() {

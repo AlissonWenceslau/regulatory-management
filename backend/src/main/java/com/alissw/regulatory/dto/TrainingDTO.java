@@ -4,11 +4,16 @@ import java.io.Serializable;
 
 import com.alissw.regulatory.entities.Training;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class TrainingDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@NotBlank(message = "Name is mandatory")
 	private String name;
+	@NotNull(message = "Can't not be null")
 	private CategoryDTO category;
 	
 	public TrainingDTO() {

@@ -10,7 +10,7 @@ public class PositionDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	@NotBlank
+	@NotBlank(message = "Name is mandatory")
 	private String name;
 	
 	public PositionDTO() {

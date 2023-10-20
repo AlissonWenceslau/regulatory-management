@@ -2,9 +2,12 @@ package com.alissw.regulatory.dto;
 
 import com.alissw.regulatory.entities.Site;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class SiteDTO {
 
 	private Long id;
+	@NotBlank(message = "Name is mandatory")
 	private String name;
 	
 	public SiteDTO() {
