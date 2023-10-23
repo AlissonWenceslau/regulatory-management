@@ -1,33 +1,54 @@
 package com.alissw.regulatory.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.alissw.regulatory.dto.UserDTO;
+import com.alissw.regulatory.dto.UserResponseDTO;
 import com.alissw.regulatory.entities.User;
 import com.alissw.regulatory.repositories.UserRepository;
+import com.alissw.regulatory.security.TokenService;
+import com.alissw.regulatory.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class UserService implements UserDetailsService{
-	
+public class UserService {
 	@Autowired
 	private UserRepository repository;
 	@Autowired
-	private static Logger logger = LoggerFactory.getLogger(UserService.class);
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = repository.findByEmail(username);
-		if(user == null) {
-			logger.error("Not Fount: " + username);
-			throw new UsernameNotFoundException(" Email Not Found: " + username);
-		}
-		logger.info("Found User: " + username);
-		return user;
+    @Transactional
+	public UserResponseDTO login(@RequestBody UserDTO dto) {
+		var usernamePassword = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
+        var auth = authenticationManager.authenticate(usernamePassword);
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+        return new UserResponseDTO(token, auth.getName());
+        
 	}
-
+	
+    @Transactional
+	public void insert(UserDTO dto) {
+        if(this.repository.findByEmail(dto.getEmail()) != null) {
+        	throw new ResourceNotFoundException("User already exists");
+        }
+        User entity = new User();
+        copyToEntity(dto, entity);
+        repository.save(entity);	
+	}
+	
+	private void copyToEntity(UserDTO dto, User entity) {
+		entity.setFirstName(dto.getFirstName());
+		entity.setLastName(dto.getLastName());
+		entity.setEmail(dto.getEmail());
+		entity.setPasssword(bCryptPasswordEncoder.encode(dto.getPassword()));
+	}
 }

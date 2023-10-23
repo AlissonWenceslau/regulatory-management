@@ -1,10 +1,10 @@
 package com.alissw.regulatory.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -39,7 +39,7 @@ public class User implements UserDetails, Serializable{
 				joinColumns = @JoinColumn(name = "user_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id")
 			)
-	private List<Role> roles = new ArrayList<>();
+	private Set<Role> roles = new HashSet<>();
 	
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -94,7 +94,7 @@ public class User implements UserDetails, Serializable{
 		this.passsword = passsword;
 	}
 
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
