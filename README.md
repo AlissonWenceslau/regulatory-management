@@ -11,4 +11,11 @@ Project for managing regulations for employees who work in activities that requi
 - [x] Java JWT 4.4.0
   
   ![newModel](https://github.com/AlissonWenceslau/regulatory-management/assets/74499967/02f49347-6501-45fe-bbdb-bac0500d7fc1)
+### Get dynamic token on Postman
+```javascript
+if(responseCode.code >= 200 && responseCode.code < 300){
+    var json = JSON.parse(responseBody);
+    postman.setEnvironmentVariable('token', json.token);
+}
+```
  
