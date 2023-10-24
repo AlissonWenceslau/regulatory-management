@@ -3,6 +3,7 @@ package com.alissw.regulatory.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,9 +31,11 @@ public class WebSecurityConfiguration {
 		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers(mvcRequestMatcher.pattern("/auth/login")).permitAll()
-				.requestMatchers(mvcRequestMatcher.pattern("/auth/register")).permitAll()
+				.requestMatchers(mvcRequestMatcher.pattern("/auth/register")).hasRole("ADMIN")
+				.requestMatchers(mvcRequestMatcher.pattern(HttpMethod.GET, "/employees/downtrainings")).permitAll()
+				.requestMatchers(mvcRequestMatcher.pattern(HttpMethod.GET, "/employees/{id}")).permitAll()
 				.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-				.anyRequest().authenticated()
+				.anyRequest().hasRole("ADMIN")
 				)
 		.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
 		.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

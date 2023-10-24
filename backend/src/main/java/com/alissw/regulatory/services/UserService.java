@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alissw.regulatory.dto.UserDTO;
 import com.alissw.regulatory.dto.UserResponseDTO;
+import com.alissw.regulatory.entities.Role;
 import com.alissw.regulatory.entities.User;
+import com.alissw.regulatory.repositories.RoleRepository;
 import com.alissw.regulatory.repositories.UserRepository;
 import com.alissw.regulatory.security.TokenService;
 import com.alissw.regulatory.services.exceptions.ResourceNotFoundException;
@@ -25,6 +27,8 @@ public class UserService {
     private TokenService tokenService;
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private RoleRepository roleRepository;
 
     @Transactional
 	public UserResponseDTO login(@RequestBody UserDTO dto) {
@@ -50,5 +54,8 @@ public class UserService {
 		entity.setLastName(dto.getLastName());
 		entity.setEmail(dto.getEmail());
 		entity.setPasssword(bCryptPasswordEncoder.encode(dto.getPassword()));
+		Role defaultRole = roleRepository.getReferenceById(1L);
+		entity.getRoles().clear();
+		entity.getRoles().add(defaultRole);
 	}
 }

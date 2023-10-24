@@ -7,26 +7,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.alissw.regulatory.entities.Category;
 import com.alissw.regulatory.entities.Department;
 import com.alissw.regulatory.entities.Employee;
 import com.alissw.regulatory.entities.EmployeeTraining;
 import com.alissw.regulatory.entities.Position;
+import com.alissw.regulatory.entities.Role;
 import com.alissw.regulatory.entities.Site;
 import com.alissw.regulatory.entities.Training;
+import com.alissw.regulatory.entities.User;
 import com.alissw.regulatory.entities.enums.Shift;
 import com.alissw.regulatory.repositories.CategoryRepository;
 import com.alissw.regulatory.repositories.DepartmentRepository;
 import com.alissw.regulatory.repositories.EmployeeRepository;
 import com.alissw.regulatory.repositories.EmployeeTrainingRepository;
 import com.alissw.regulatory.repositories.PositionRepository;
+import com.alissw.regulatory.repositories.RoleRepository;
 import com.alissw.regulatory.repositories.SiteRepository;
 import com.alissw.regulatory.repositories.TrainingRepository;
+import com.alissw.regulatory.repositories.UserRepository;
 
 @SpringBootApplication
 public class RegulatoryApplication implements CommandLineRunner{
-
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private CategoryRepository categoryRepository;
 	@Autowired
@@ -41,6 +48,10 @@ public class RegulatoryApplication implements CommandLineRunner{
 	private DepartmentRepository departmentRepository;
 	@Autowired
 	private SiteRepository siteRepository;
+	@Autowired
+	private RoleRepository roleRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(RegulatoryApplication.class, args);
@@ -124,6 +135,21 @@ public class RegulatoryApplication implements CommandLineRunner{
 		t3.getTrainings().addAll(Arrays.asList(et5, et7));
 		
 		employeeTrainingRepository.saveAll(Arrays.asList(et1, et2, et3, et4, et5, et6, et7, et8, et9));
+		
+		Role r1 = new Role(null, "ROLE_USER");
+		Role r2 = new Role(null, "ROLE_ADMIN");
+		
+		roleRepository.saveAll(Arrays.asList(r1, r2));
+		
+		User u1 = new User(null, "Alisson", "Wenceslau", "alisson@hotmail.com", passwordEncoder.encode("1234"));
+		User u2 = new User(null, "Bob", "Brown", "bob@hotmail.com", passwordEncoder.encode("1234"));
+		
+		u1.getRoles().add(r2);
+		u2.getRoles().add(r1);
+		
+		userRepository.saveAll(Arrays.asList(u1, u2));
+		
+		
 	}
 
 }
