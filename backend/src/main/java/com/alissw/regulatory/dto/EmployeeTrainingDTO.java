@@ -3,6 +3,7 @@ package com.alissw.regulatory.dto;
 import java.time.Instant;
 
 import com.alissw.regulatory.entities.EmployeeTraining;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class EmployeeTrainingDTO {
 
@@ -35,11 +36,11 @@ public class EmployeeTrainingDTO {
 	public TrainingDTO getTraining() {
 		return training;
 	}
-
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
 	public Instant getStartDate() {
 		return startDate;
 	}
-
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
 	public Instant getEndDate() {
 		return endDate;
 	}
