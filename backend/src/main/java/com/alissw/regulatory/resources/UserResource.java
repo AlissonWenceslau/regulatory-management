@@ -11,6 +11,8 @@ import com.alissw.regulatory.dto.UserDTO;
 import com.alissw.regulatory.dto.UserResponseDTO;
 import com.alissw.regulatory.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/auth")
 public class UserResource {
@@ -19,14 +21,14 @@ public class UserResource {
 	private UserService service;
 
 	@PostMapping(value = "/login")
-	public ResponseEntity<UserResponseDTO> login (@RequestBody UserDTO dto) {
+	public ResponseEntity<UserResponseDTO> login (@RequestBody @Valid UserDTO dto) {
 		UserResponseDTO response = service.login(dto);
 		
 		return ResponseEntity.ok().body(response);
 	}
 	
 	@PostMapping(value = "/register")
-	public ResponseEntity<Void> insert (@RequestBody UserDTO dto) {
+	public ResponseEntity<Void> insert (@RequestBody @Valid UserDTO dto) {
 		service.insert(dto);
 		
 		return ResponseEntity.ok().build();

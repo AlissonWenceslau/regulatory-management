@@ -5,12 +5,22 @@ import java.util.Set;
 
 import com.alissw.regulatory.entities.User;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class UserDTO {
 
 	private Long id;
+	@NotBlank
 	private String firstName;
+	@NotBlank
 	private String lastName;
+	@NotBlank
+	@Email
 	private String email;
+	@NotBlank
+	@Size(min = 4)
 	private String password;
 	
 	private Set<RoleDTO> roles = new HashSet<>();
