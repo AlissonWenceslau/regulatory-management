@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alissw.regulatory.dto.UserDTO;
+import com.alissw.regulatory.dto.UserLoginDTO;
 import com.alissw.regulatory.dto.UserResponseDTO;
 import com.alissw.regulatory.entities.Role;
 import com.alissw.regulatory.entities.User;
@@ -31,7 +32,7 @@ public class UserService {
 	private RoleRepository roleRepository;
 
     @Transactional
-	public UserResponseDTO login(@RequestBody UserDTO dto) {
+	public UserResponseDTO login(@RequestBody UserLoginDTO dto) {
 		var usernamePassword = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
         var auth = authenticationManager.authenticate(usernamePassword);
         var token = tokenService.generateToken((User) auth.getPrincipal());

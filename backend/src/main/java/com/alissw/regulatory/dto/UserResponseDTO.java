@@ -14,6 +14,10 @@ public class UserResponseDTO {
 		this.email = email;
 	}
 
+	public UserResponseDTO(String email) {
+		this.email = email;
+	}
+
 	public String getToken() {
 		return token;
 	}

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alissw.regulatory.dto.UserDTO;
+import com.alissw.regulatory.dto.UserLoginDTO;
 import com.alissw.regulatory.dto.UserResponseDTO;
 import com.alissw.regulatory.services.UserService;
 
@@ -21,7 +22,7 @@ public class UserResource {
 	private UserService service;
 
 	@PostMapping(value = "/login")
-	public ResponseEntity<UserResponseDTO> login (@RequestBody @Valid UserDTO dto) {
+	public ResponseEntity<UserResponseDTO> login (@RequestBody @Valid UserLoginDTO dto) {
 		UserResponseDTO response = service.login(dto);
 		
 		return ResponseEntity.ok().body(response);
