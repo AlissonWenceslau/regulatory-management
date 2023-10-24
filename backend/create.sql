@@ -1,0 +1,18 @@
+create table categories (id bigserial not null, name varchar(255), primary key (id));
+create table departments (id bigserial not null, name varchar(255), primary key (id));
+create table employees (code_area integer, shift integer, department_id bigint, employeeid bigint not null, indentification bigint, phone bigint, position_id bigint, site_id bigint, first_name varchar(255), last_name varchar(255), primary key (employeeid));
+create table employee_training (status integer, employee_id bigint not null, end_date TIMESTAMP WITHOUT TIME ZONE, start_date TIMESTAMP WITHOUT TIME ZONE, training_id bigint not null, primary key (employee_id, training_id));
+create table positions (id bigserial not null, name varchar(255), primary key (id));
+create table roles (id bigserial not null, authority varchar(255), primary key (id));
+create table sites (id bigserial not null, name varchar(255), primary key (id));
+create table trainings (category_id bigint, id bigserial not null, name varchar(255), primary key (id));
+create table users (id bigserial not null, email varchar(255), first_name varchar(255), last_name varchar(255), passsword varchar(255), primary key (id));
+create table users_roles (role_id bigint not null, user_id bigint not null, primary key (role_id, user_id));
+alter table if exists employees add constraint FKgy4qe3dnqrm3ktd76sxp7n4c2 foreign key (department_id) references departments;
+alter table if exists employees add constraint FKngcpgx7fx5kednw3m7u0u8of3 foreign key (position_id) references positions;
+alter table if exists employees add constraint FK26h4fmi7gj5ndsakcer4hit4r foreign key (site_id) references sites;
+alter table if exists employee_training add constraint FK8bixlq23ja79pd62emlwcfpqo foreign key (employee_id) references employees;
+alter table if exists employee_training add constraint FKt5i1bmvddu28pibqfq17yga0r foreign key (training_id) references trainings;
+alter table if exists trainings add constraint FKtm68ski7juk88qcql9qy8wp1l foreign key (category_id) references categories;
+alter table if exists users_roles add constraint FKj6m8fwv7oqv74fcehir1a9ffy foreign key (role_id) references roles;
+alter table if exists users_roles add constraint FK2o0jvgh89lemvvo17cbqvdxaa foreign key (user_id) references users;
