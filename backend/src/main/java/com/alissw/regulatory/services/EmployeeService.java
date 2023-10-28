@@ -93,6 +93,17 @@ public class EmployeeService {
 		repository.deleteById(id);
 	}
 	
+	@Transactional
+	public void updateTableEmployeeTrainigBasedActualDate() {
+		List<EmployeeTraining> entity = employeeTrainingRepository.findAll();
+		for(EmployeeTraining emp : entity) {
+			if(emp.getDays()<0) {
+				emp.setStatus();
+			}
+		}
+		System.out.println("A tabela de EmployeeTraining Foi atualizada hoje: " + Instant.now());
+	}
+	
 	private void copyToEntity(EmployeeInsertDTO dto, Employee entity) {
 		entity.setEmployeeID(dto.getEmployeeID());
 		entity.setFirstName(dto.getFirstName());
@@ -121,16 +132,5 @@ public class EmployeeService {
 			entity.getEmployees().add(employeeTraining);
 			training.getTrainings().add(employeeTraining);
 		}
-	}
-	
-	@Transactional
-	public void updateTableEmployeeTrainigBasedActualDate() {
-		List<EmployeeTraining> entity = employeeTrainingRepository.findAll();
-		for(EmployeeTraining emp : entity) {
-			if(emp.getDays()<0) {
-				emp.setStatus();
-			}
-		}
-		System.out.println("A tabela de EmployeeTraining Foi atualizada hoje: " + Instant.now());
 	}
 }
