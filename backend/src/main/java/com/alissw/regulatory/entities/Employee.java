@@ -8,6 +8,7 @@ import java.util.Set;
 import com.alissw.regulatory.entities.enums.Shift;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -21,7 +22,8 @@ public class Employee implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	private Long employeeID;
+	@Column(name = "employee_id")
+	private Long employeeId;
 	private String firstName;
 	private String lastName;
 	private Long indentification;
@@ -47,9 +49,9 @@ public class Employee implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(Long registration, String firstName, String lastName, Long indentification, Integer codeArea, Long phone, Shift shift, Department department, Site site) {
+	public Employee(Long employeeId, String firstName, String lastName, Long indentification, Integer codeArea, Long phone, Shift shift, Department department, Site site) {
 		super();
-		this.employeeID = registration;
+		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.indentification = indentification;
@@ -60,12 +62,12 @@ public class Employee implements Serializable{
 		this.site = site;
 	}
 
-	public Long getEmployeeID() {
-		return employeeID;
+	public Long getEmployeeId() {
+		return employeeId;
 	}
 
 	public void setEmployeeID(Long registration) {
-		this.employeeID = registration;
+		this.employeeId = registration;
 	}
 
 	public String getFirstName() {
@@ -152,7 +154,7 @@ public class Employee implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(employeeID);
+		return Objects.hash(employeeId);
 	}
 
 	@Override
@@ -164,6 +166,6 @@ public class Employee implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		return Objects.equals(employeeID, other.employeeID);
+		return Objects.equals(employeeId, other.employeeId);
 	}
 }

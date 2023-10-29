@@ -58,6 +58,7 @@ public class EmployeeService {
 		try {
 			Pageable pageable = PageRequest.of(pageNumber, pageSize);
 			List<Employee> list = repository.findEmployeesDownTraining(employeeId);
+			list.sort((e1, e2) -> e1.getFirstName().toUpperCase().compareTo(e2.getFirstName().toUpperCase()));
 			int start = (int) pageable.getOffset();
 			int end = Math.min((start + pageable.getPageSize()), list.size());
 			Page<Employee> page = new PageImpl<>(list.subList(start, end), pageable, list.size());
