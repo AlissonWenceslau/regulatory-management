@@ -52,7 +52,7 @@ public class EmployeeDTO implements Serializable {
 	
 	public EmployeeDTO(Employee entity) {
 		super();
-		employeeID = entity.getEmployeeID();
+		employeeID = entity.getEmployeeId();
 		firstName = entity.getFirstName();
 		lastName = entity.getLastName();
 		shift = entity.getShift();
