@@ -11,6 +11,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 	@Query("SELECT obj FROM Employee obj JOIN FETCH obj.employees e WHERE "
 			+ "(e.status = 2) AND "
-			+ "(:employeeId = 0 OR obj.employeeID = :employeeId)")
+			+ "(:employeeId = 0 OR obj.employeeId = :employeeId)")
 	List<Employee> findEmployeesDownTraining(Integer employeeId);
 }
